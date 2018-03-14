@@ -1,0 +1,46 @@
+{
+  "activities": [
+    {
+      "id":1,
+      "activity":"Sample 1",
+      "subunit":"Plan & Budget Control",
+      "pic": {
+        "id":1,
+        "name":"Aditya Amirullah",
+        "nik":"920153",
+        "level":"admin",
+        "subunit":"Plan & Budget Control"
+      },
+      "deadline":"10 Mar 2018",
+      "stat":"open"
+    },
+    {
+      "id":2,
+      "activity":"Sample 2",
+      "subunit":"Performance & War Room",
+      "pic": {
+        "id":2,
+        "name":"Firman Syah",
+        "nik":"900071",
+        "level":"stf",
+        "subunit":"Performance & War Room"
+      },
+      "deadline":"18 Mar 2018",
+      "stat":"open"
+    },
+    {
+      "id":3,
+      "activity":"Sample 3",
+      "subunit":"Revenue Assurance",
+      "pic": {
+        "id":2,
+        "name":"Josia P. Tarigan",
+        "nik":"900010",
+        "level":"stf",
+        "subunit":"Revenue Assurance"
+      },
+      "deadline":"26 Mar 2018",
+      "stat":"closed"
+    }
+  ]
+}

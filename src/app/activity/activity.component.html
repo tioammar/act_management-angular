@@ -1,0 +1,76 @@
+<header class="empty"></header>
+<div class="main">
+  <div class="container mat-typography">
+    
+    <mat-table #table *ngIf="hasActivity(); else noActivity" [dataSource]="dataSource" class="mat-elevation-z4">
+        <ng-container matColumnDef='no'>
+          <mat-header-cell *matHeaderCellDef>No. </mat-header-cell>
+          <mat-cell *matCellDef="let activity">{{activity.no}}.</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef='activity'>
+          <mat-header-cell *matHeaderCellDef>Kegiatan</mat-header-cell>
+          <mat-cell *matCellDef="let activity">
+            <a routerLink="/detail/{{activity.id}}" routerLinkActive="active">{{activity.activity}}</a>
+          </mat-cell>
+        </ng-container>
+          
+        <ng-container matColumnDef='deadline'>
+          <mat-header-cell *matHeaderCellDef>Batas Waktu</mat-header-cell>
+          <mat-cell *matCellDef="let activity">{{activity.deadline}}</mat-cell>
+        </ng-container>
+        
+        <ng-container matColumnDef='pic'>
+          <mat-header-cell *matHeaderCellDef>Penanggung Jawab</mat-header-cell>
+          <mat-cell *matCellDef="let activity"><li *ngFor="let pic of activity.pic">{{pic.name}}</li></mat-cell>
+        </ng-container>
+          
+        <ng-container matColumnDef='subunit'>
+          <mat-header-cell *matHeaderCellDef>Unit / Sub Unit</mat-header-cell>
+          <mat-cell *matCellDef="let activity">{{activity.subunit}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef='stat'>
+            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+            <mat-cell *matCellDef="let activity">
+              <span *ngIf="isOpen(activity.status); else itemClose" class="tag is-danger">Open</span>
+              <ng-template #itemClose><span class="tag is-success">Close</span></ng-template>
+            </mat-cell>
+          </ng-container>
+
+        <ng-container matColumnDef='note'>
+            <mat-header-cell *matHeaderCellDef>Catatan</mat-header-cell>
+            <mat-cell *matCellDef="let activity">{{activity.note}}</mat-cell>
+          </ng-container>
+          
+        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+    </mat-table>
+
+    <ng-template #noActivity>
+    <div class="columns is-centered">
+      <div class='column is-narrow is-half'>
+        <p class="has-text-centered">Belum ada aktifitas saat ini. Good Work!</p>
+      </div>
+    </div>
+    </ng-template>  
+
+    <div class="columns top-20">
+      <div class="column">
+        <a routerLink="/add" routerLinkActive="active" class="button is-link is-pulled-right">
+          <span class="icon">
+            <i class="fas fa-plus"></i>
+          </span>
+          <span>Tambahkan</span>
+        </a>
+        <a class="button is-warning is-pulled-right right-10" (click)="updateData()">
+          <span class="icon">
+            <i class="fas fa-sync"></i>
+          </span>
+        </a>
+        <p *ngIf="isLoading" class="has-text-centered right-10">Memuat...</p>
+      </div>
+    </div> 
+
+  </div> <!-- container end -->
+</div> <!-- main end -->

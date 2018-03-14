@@ -1,0 +1,44 @@
+{
+  "activity":{
+    "id":1,
+    "activity":"Sample 1",
+    "subunit":"Plan & Budget Control",
+    "pic": {
+      "id":1,
+      "name":"Aditya Amirullah",
+      "nik":"920153",
+      "level":"admin",
+      "subunit":"Plan & Budget Control"
+    },
+    "deadline":"10 Mar 2018",
+    "stat":"open"
+  },
+  "progress":[
+    {
+      "id": 1,
+      "activity": 1,
+      "pic": {
+        "id":1,
+        "name":"Aditya Amirullah",
+        "nik":"920153",
+        "level":"admin",
+        "subunit":"Plan & Budget Control"
+      },
+      "progress": "Sample Progress 1",
+      "pdate":"8 Mar 2018"
+    },
+    {
+      "id": 2,
+      "activity": 1,
+      "pic": {
+        "id":1,
+        "name":"Aditya Amirullah",
+        "nik":"920153",
+        "level":"admin",
+        "subunit":"Plan & Budget Control"
+      },
+      "progress": "Sample Progress 2",
+      "pdate":"9 Mar 2018"
+    }
+  ]
+}

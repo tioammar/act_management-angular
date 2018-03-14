@@ -1,0 +1,26 @@
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.table-custom {
+  overflow: auto;
+  min-height: 150px;
+}
+
+/* Column Width */
+.mat-column-no {
+  max-width: 64px;
+}
+
+.mat-column-deadline, .mat-column-stat {
+  max-width: 100px;
+}
+
+.mat-column-pic {
+  max-width: 150px;
+}
+
+.mat-column-subunit {
+  max-width: 250px;
+}

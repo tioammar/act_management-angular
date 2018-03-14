@@ -1,0 +1,12 @@
+/* Column Width */
+.mat-column-no {
+  max-width: 64px;
+}
+
+.mat-column-pdate {
+  max-width: 200px;
+}
+
+.mat-column-pic {
+  max-width: 200px;
+}
