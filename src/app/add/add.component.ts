@@ -56,8 +56,9 @@ export class AddComponent implements OnInit {
       {id: 6, pic: false, name: 'Firman Syah'},
       {id: 8, pic: false, name: 'Josia P. Tarigan'},
     ];
+
+    // default value
     this.form.subunit = "Business Planning & Performance";
-    this.form.deadline = "24 Mar 2018" // gonna use this for edit component to set default value
   }
 
   onSubmit(): void {
@@ -77,7 +78,6 @@ export class AddComponent implements OnInit {
     this.location.back();
   }
 
-  // to get an array of Id's as value to form.pic
   public get selectedValue() : number[] {
     return this.users
       .filter(u => u.pic)

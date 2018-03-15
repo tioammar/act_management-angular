@@ -1,6 +1,10 @@
-export interface UserForm {
+import { Injectable } from "@angular/core";
 
-  id: number;
-  pic: boolean;
-  name: string;
+@Injectable()
+export class UserForm {
+  constructor(){}
+
+  public id: number;
+  public pic: boolean;
+  public name: string;
 }

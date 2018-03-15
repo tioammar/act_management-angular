@@ -17,6 +17,8 @@ import { AddComponent } from './add/add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { UserService } from './service/user.service';
+import { MainForm } from './model/form/main-form';
+import { UserForm } from './model/form/user-form';
 
 const routes: Routes = [
   { path: 'activity', component: ActivityComponent },
@@ -59,7 +61,9 @@ const routes: Routes = [
   ],
   providers: [
     ActivityService,
-    UserService
+    UserService,
+    MainForm,
+    UserForm
   ],
   bootstrap: [AppComponent]
 })
