@@ -8,6 +8,9 @@ import { Location } from '@angular/common';
 import { StatusResponse } from '../model/response/status-response';
 import * as moment from 'moment';
 import { FormControl } from '@angular/forms';
+import { UserService } from '../service/user.service';
+import { UserForm } from '../model/form/user-form';
+import { User } from '../model/user';
 
 export const FORMATS = {
   parse: {
@@ -35,11 +38,10 @@ export class AddComponent implements OnInit {
     private router: Router,
     private activityService: ActivityService,
     private location: Location,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: UserService
   ) { }
 
-  private form = new MainForm();
-  private date = moment(new Date());
   private units = [
     "Business Planning & Performance",
     "Performance & War Room",
@@ -47,17 +49,15 @@ export class AddComponent implements OnInit {
     "Quality & Change Management",
     "Revenue Assurance"
   ];
+
+  private form = new MainForm();
+  private date = moment(new Date());
   private status: boolean;
-  private users: any[];
+  private users: User[];
+  private userForm = new Array();
 
   ngOnInit() {
-    this.users = [
-      {id: 3, pic: false, name: 'Aditya Amirullah'},
-      {id: 6, pic: false, name: 'Firman Syah'},
-      {id: 8, pic: false, name: 'Josia P. Tarigan'},
-    ];
-
-    // default value
+    this.buildUserForm();
     this.form.subunit = "Business Planning & Performance";
   }
 
@@ -74,12 +74,27 @@ export class AddComponent implements OnInit {
     );
   }
 
+  buildUserForm(): void {
+    this.userService.getUsers().subscribe(
+      resp => {
+        this.users = resp.body.users;
+        this.users.forEach(u => {
+          let uf = new UserForm();
+          uf.id = u.id;
+          uf.name = u.name;
+          uf.pic = false;
+          this.userForm.push(uf);
+        });
+      }
+    );
+  }
+
   goBack(): void {
     this.location.back();
   }
 
   public get selectedValue() : number[] {
-    return this.users
+    return this.userForm
       .filter(u => u.pic)
       .map(u => u.id);
   }

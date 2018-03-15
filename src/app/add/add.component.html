@@ -47,7 +47,7 @@
         <div class="field">
           <label class="label">Penanggung Jawab</label>
           <div class="control"><ul>
-            <li *ngFor="let user of users">
+            <li *ngFor="let user of userForm">
               <mat-checkbox name="pic" [(ngModel)]="user.pic" [value]="user.id">
                 {{user.name}}
               </mat-checkbox>
@@ -56,11 +56,6 @@
         </div>
         <a class="button is-success" (click)="onSubmit()">Tambahkan</a>
         <a class="button is-danger" (click)="goBack()">Batal</a><br>
-        <!-- {{form.deadline}}<br>
-        {{form.activity}}<br>
-        {{form.subunit}}<br>
-        {{form.pic}}<br>
-        {{form.note}} -->
       </div>
     </div>
 

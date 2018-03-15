@@ -24,8 +24,8 @@ export const FORMATS = {
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css'],
+  templateUrl: '../add/add.component.html',
+  styleUrls: ['../add/add.component.css'],
   providers: [
     {provide: MAT_DATE_FORMATS, useValue: FORMATS}
   ]
@@ -35,9 +35,8 @@ export class EditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private form: MainForm,
-    // private activityService: ActivityService,
-    // private userService: UserService
+    private activityService: ActivityService,
+    private userService: UserService
   ) { }
 
   private units = [
@@ -48,68 +47,49 @@ export class EditComponent implements OnInit {
     "Revenue Assurance"
   ];
 
-  private id: number;
-  // private activity: Activity;
-  // private form = new MainForm();
-
-  // this gonna be come from getUsers
-  private users = [
-    {id: 3, name: "Aditya Amirullah"},
-    {id: 6, name: "Firman Syah"},
-    {id: 8, name: "Josia P. Tarigan"} 
-  ];
-
-  // this gonna be come from activity.pic
-  private pics = [
-    {id: 3, name: "Aditya Amirullah"},
-    {id: 8, name: "Josia P. Tarigan"}
-  ];
-
+  private activity: Activity;
+  private users: User[];
+  private form = new MainForm();
   private pic = new Array();
   private userForm = new Array();
   private date: any;
 
   ngOnInit() {
-    // this.id = Number(this.route.snapshot.paramMap.get('id'));
-    // this.getActivity();
-    // this.activity.pic.forEach(p => {
-    //   this.pic.push(p.id);
-    // });
-
-    this.pics.forEach(p => {
-      this.pic.push(p.id);
-    });
-
-    this.form.activity = "Tes";
-    this.form.deadline = "6 Mar 1992";
-    this.date = moment(new Date(this.form.deadline));
-    this.form.note = "-";
-    this.form.subunit = "Plan & Budget Control";
-    this.buildUserForm();
+    const id = this.route.snapshot.paramMap.get('id');
+    this.getActivity(id);
   }
 
-  // getActivity(): void {
-  //   this.activityService.getActivity(this.id).subscribe(
-  //     resp => {
-  //       this.activity = resp.body.activity;
-  //     }
-  //   );
-  // }
+  getActivity(id): void {
+    this.activityService.getActivity(id).subscribe(
+      resp => {
+        this.activity = resp.body.activity;    
+        this.activity.pic.forEach(p => {
+          this.pic.push(p.id);
+        });    
+        this.form.activity = this.activity.activity;
+        this.form.deadline = this.activity.deadline;
+        this.date = moment(new Date(this.form.deadline));
+        this.form.note = this.activity.note;
+        this.form.subunit = this.activity.subunit;
+        this.buildUserForm();
+      }
+    );
+  }
 
   buildUserForm(): void {
-    // this.userService.getUsers().subscribe(
-    //   resp => {
-    //     this.users = resp.body.users;
-    //   }
-    // );
-    this.users.forEach(u => {
-      let uf = new UserForm();
-      uf.id = u.id;
-      uf.name = u.name;
-      uf.pic = this.pic.includes(u.id);
-      if(uf.pic) console.log(uf.name);
-      this.userForm.push(uf);
-    });
+    this.userService.getUsers().subscribe(
+      resp => {
+        this.users = resp.body.users;
+        this.users.forEach(u => {
+          let uf = new UserForm();
+          uf.id = u.id;
+          uf.name = u.name;
+          uf.pic = this.pic.includes(u.id);
+          if(uf.pic) console.log(uf.name);
+          this.userForm.push(uf);
+        });
+      }
+    );
   }
 
   private get selectedValue(): number[] {

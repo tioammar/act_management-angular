@@ -5,6 +5,7 @@ import { ActivityService } from '../service/activity.service';
 import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { TableProgress } from '../model/table/table-progress';
 
 @Component({
   selector: 'app-detail',
@@ -25,6 +26,8 @@ export class DetailComponent implements OnInit {
   private activity: Activity;
   private dataSource = new MatTableDataSource();
   private status: boolean;
+  private progress: Progress[];
+  private tableData = new Array();
 
   private isLoading = true;
 
@@ -37,8 +40,18 @@ export class DetailComponent implements OnInit {
     this.activityService.getActivity(id).subscribe(
       resp => {
         this.activity = resp.body.activity;
-        this.dataSource.data = resp.body.progress;
+        this.progress = resp.body.progress;
         this.isLoading = false;
+
+        let i = 1;
+        this.progress.forEach(p => {
+          let table = new TableProgress();
+          table.no = i;
+          table.progress = p;
+          i++;
+          this.tableData.push(table);
+        });
+        this.dataSource.data = this.tableData;
       }
     );
   }

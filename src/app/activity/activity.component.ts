@@ -6,6 +6,7 @@ import { DataSource } from '@angular/cdk/table';
 import { HttpResponse } from '@angular/common/http';
 import { AllResponse } from '../model/response/all-response';
 import { Observable } from 'rxjs';
+import { TableActivity } from '../model/table/table-activity';
 
 @Component({
   selector: 'app-activity',
@@ -18,6 +19,8 @@ export class ActivityComponent implements OnInit {
 
   private columns = ['no', 'activity', 'subunit', 'pic', 'deadline', 'stat', 'note'];
   private dataSource = new MatTableDataSource();
+  private activities: Activity[];
+  private data = new Array();
 
   private isLoading = true; // show loading spinner
   
@@ -28,13 +31,23 @@ export class ActivityComponent implements OnInit {
   getActivities(): void {
     this.activityService.getActivities().subscribe(
       resp => {
-        this.dataSource.data = resp.body.activities;
-        this.isLoading = false; // hide loading spinner
+        this.activities = resp.body.activities;
+        this.isLoading = false; // hide loading spinner    
+        let i = 1;
+        this.activities.forEach(a => {
+          let table = new TableActivity();
+          table.no = i;
+          table.activity = a;
+          i++;
+          this.data.push(table);
+        });
+        this.dataSource.data = this.data;
       }
     );
   }
 
   updateData(): void {
+    this.data = [];
     this.isLoading = true; 
     this.getActivities();
   }

@@ -5,42 +5,42 @@
     <mat-table #table *ngIf="hasActivity(); else noActivity" [dataSource]="dataSource" class="mat-elevation-z4">
         <ng-container matColumnDef='no'>
           <mat-header-cell *matHeaderCellDef>No. </mat-header-cell>
-          <mat-cell *matCellDef="let activity">{{activity.no}}.</mat-cell>
+          <mat-cell *matCellDef="let table">{{table.no}}.</mat-cell>
         </ng-container>
         
         <ng-container matColumnDef='activity'>
           <mat-header-cell *matHeaderCellDef>Kegiatan</mat-header-cell>
-          <mat-cell *matCellDef="let activity">
-            <a routerLink="/detail/{{activity.id}}" routerLinkActive="active">{{activity.activity}}</a>
+          <mat-cell *matCellDef="let table">
+            <a routerLink="/detail/{{table.activity.id}}" routerLinkActive="active">{{table.activity.activity}}</a>
           </mat-cell>
         </ng-container>
           
         <ng-container matColumnDef='deadline'>
           <mat-header-cell *matHeaderCellDef>Batas Waktu</mat-header-cell>
-          <mat-cell *matCellDef="let activity">{{activity.deadline}}</mat-cell>
+          <mat-cell *matCellDef="let table">{{table.activity.deadline}}</mat-cell>
         </ng-container>
         
         <ng-container matColumnDef='pic'>
           <mat-header-cell *matHeaderCellDef>Penanggung Jawab</mat-header-cell>
-          <mat-cell *matCellDef="let activity"><li *ngFor="let pic of activity.pic">{{pic.name}}</li></mat-cell>
+          <mat-cell *matCellDef="let table"><li *ngFor="let pic of table.activity.pic">{{pic.name}}</li></mat-cell>
         </ng-container>
           
         <ng-container matColumnDef='subunit'>
           <mat-header-cell *matHeaderCellDef>Unit / Sub Unit</mat-header-cell>
-          <mat-cell *matCellDef="let activity">{{activity.subunit}}</mat-cell>
+          <mat-cell *matCellDef="let table">{{table.activity.subunit}}</mat-cell>
         </ng-container>
 
         <ng-container matColumnDef='stat'>
             <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-            <mat-cell *matCellDef="let activity">
-              <span *ngIf="isOpen(activity.status); else itemClose" class="tag is-danger">Open</span>
+            <mat-cell *matCellDef="let table">
+              <span *ngIf="isOpen(table.activity.status); else itemClose" class="tag is-danger">Open</span>
               <ng-template #itemClose><span class="tag is-success">Close</span></ng-template>
             </mat-cell>
           </ng-container>
 
         <ng-container matColumnDef='note'>
             <mat-header-cell *matHeaderCellDef>Catatan</mat-header-cell>
-            <mat-cell *matCellDef="let activity">{{activity.note}}</mat-cell>
+            <mat-cell *matCellDef="let table">{{table.activity.note}}</mat-cell>
           </ng-container>
           
         <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
