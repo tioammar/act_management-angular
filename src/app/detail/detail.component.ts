@@ -25,7 +25,6 @@ export class DetailComponent implements OnInit {
   private columns = ['no', 'progress', 'pic', 'pdate'];
   private activity: Activity;
   private dataSource = new MatTableDataSource();
-  private status: boolean;
   private progress: Progress[];
   private tableData = new Array();
 
@@ -72,21 +71,27 @@ export class DetailComponent implements OnInit {
     return true;
   }
 
-  OpenSnackBar(message: string, action: string): void {
-    this.snackBar.open(message, action, {
-      duration: 2000
-    });
+  changeStatus(): void {
+    let status = "open";
+    if(this.activity.status == "open"){
+      status = "close";
+    }
+    this.activityService.changeStatus(status, this.activity.id).subscribe(
+      resp => {
+        const status = resp.body.stat;
+        if(status){
+          this.getDetail(this.route.snapshot.paramMap.get('id'));
+        } else this.snackBar.open("Gagal Mengubah Status :(", "Tutup");
+      });
   }
 
-  deleteItem(id: number): void {
+  deleteItem(id): void {
     this.activityService.deleteActivity(id).subscribe(
       resp => {
-        this.status = resp.body.stat;
-      }
-    );
-    if(this.status){
-      this.router.navigate(['/activity']);
-    } else this.snackBar.open("Gagal Menghapus Aktifitas", "Tutup",
-      {duration: 2000});
+        const status = resp.body.stat;
+        if(status){
+          this.router.navigate(['/activity']);
+        } else this.snackBar.open("Gagal Menghapus Data :(", "Tutup");
+    });
   }
 }

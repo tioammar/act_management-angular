@@ -8,7 +8,7 @@ import { DetailComponent } from './detail/detail.component';
 import { ActivityService } from './service/activity.service';
 
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, NativeDateModule, MatFormFieldModule, MatCheckboxModule, MatSelectModule } from '@angular/material';
+import { MatTableModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, NativeDateModule, MatFormFieldModule, MatCheckboxModule, MatSelectModule, MatProgressSpinnerModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatCardModule } from '@angular/material';
@@ -57,7 +57,8 @@ const routes: Routes = [
     NativeDateModule,
     MomentDateModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     ActivityService,

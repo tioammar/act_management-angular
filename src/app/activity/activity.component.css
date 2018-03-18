@@ -13,6 +13,10 @@ a {
   max-width: 64px;
 }
 
+.center {
+  margin: 0 auto;
+}
+
 .mat-column-deadline, .mat-column-stat {
   max-width: 100px;
 }

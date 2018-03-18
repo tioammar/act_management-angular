@@ -35,7 +35,7 @@ export class ActivityService {
     );
   }
 
-  public getActivity(id: number): Observable<HttpResponse<DetailResponse>> {
+  public getActivity(id): Observable<HttpResponse<DetailResponse>> {
     const url = `http://localhost/todolist/api/get.php?p=sin&id=${id}`;
     return this.http.get<DetailResponse>(url, {observe: 'response'})
       .pipe(
@@ -44,13 +44,18 @@ export class ActivityService {
       );
   }
 
-  public deleteActivity(id: number): Observable<HttpResponse<StatusResponse>> {
-    const url = `http://localhost/todolist/api/post.php?p=delete&id=${id}`;
-    return this.http.get<StatusResponse>(url, {observe: 'response'})
-    .pipe(
-      retry(3),
-      catchError(this.handlingError)
-    );
+  public deleteActivity(id): Observable<HttpResponse<StatusResponse>> {
+    let params = new HttpParams().append('id', id);
+    const url = `http://localhost/todolist/api/post.php?p=delete`;
+    return this.http.post<StatusResponse>(url, params, {observe: 'response'})
+    .pipe(catchError(this.handlingError));
+  }
+
+  public changeStatus(status: string, id): Observable<HttpResponse<StatusResponse>> {
+    let params = new HttpParams().append('status', status);
+    const url = `http://localhost/todolist/api/post.php?p=stat&id=${id}`;
+    return this.http.post<StatusResponse>(url, params, {observe: 'response'})
+    .pipe(catchError(this.handlingError));
   }
 
   private buildBody(form: MainForm): HttpParams {
@@ -62,8 +67,8 @@ export class ActivityService {
     .append('subunit', form.subunit);
   }
 
-  public editActivity(id: number, form: MainForm): Observable<HttpResponse<StatusResponse>> {
-    return this.http.post<StatusResponse>(`http://localhost/todolist/api/post.php?p=edit&id=${id}`, 
+  public editActivity(id, form: MainForm): Observable<HttpResponse<StatusResponse>> {
+    return this.http.post<StatusResponse>(`http://localhost/todolist/api/post.php?p=update&id=${id}`, 
       this.buildBody(form), {observe: 'response'}).pipe(
       catchError(this.handlingError)
     );

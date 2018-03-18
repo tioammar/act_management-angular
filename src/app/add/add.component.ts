@@ -70,8 +70,7 @@ export class AddComponent implements OnInit {
         if(this.status){
           this.router.navigate(['/activity']);
         } else this.snackBar.open("Gagal Memasukkan Data", "Tutup");
-      }
-    );
+      });
   }
 
   buildUserForm(): void {

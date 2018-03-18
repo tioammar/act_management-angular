@@ -10,3 +10,7 @@
 .mat-column-pic {
   max-width: 200px;
 }
+
+.center {
+  margin: 0 auto;
+}

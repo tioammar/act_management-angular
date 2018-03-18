@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Activity } from '../model/activity';
 import { ActivityService } from '../service/activity.service';
 import { MainForm } from '../model/form/main-form';
@@ -7,7 +7,7 @@ import { User } from '../model/user';
 import { UserForm } from '../model/form/user-form';
 import { UserService } from '../service/user.service';
 import * as moment from 'moment';
-import { MAT_DATE_FORMATS } from '@angular/material';
+import { MAT_DATE_FORMATS, MatSnackBar } from '@angular/material';
 import { Location } from '@angular/common';
 
 export const FORMATS = {
@@ -36,7 +36,8 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private activityService: ActivityService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   private units = [
@@ -53,6 +54,8 @@ export class EditComponent implements OnInit {
   private pic = new Array();
   private userForm = new Array();
   private date: any;
+  private snackBar: MatSnackBar;
+  private isLoading = true;
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -72,6 +75,7 @@ export class EditComponent implements OnInit {
         this.form.note = this.activity.note;
         this.form.subunit = this.activity.subunit;
         this.buildUserForm();
+        this.isLoading = false;
       }
     );
   }
@@ -99,9 +103,16 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
     this.form.pic = this.selectedValue;
     this.form.deadline = this.date.format("D MMM Y");
-    // send data using service
+    this.activityService.editActivity(id, this.form).subscribe(
+      resp => {
+        const status = resp.body.stat;
+        if(status){
+          this.router.navigate(['/detail', id]);
+        } else this.snackBar.open("Gagal Mengubah Data", "Tutup");
+    });
   }
 
   goBack(): void {
