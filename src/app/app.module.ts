@@ -19,15 +19,19 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
 import { UserService } from './service/user.service';
 import { MainForm } from './model/form/main-form';
 import { UserForm } from './model/form/user-form';
+import { StorageServiceModule, SESSION_STORAGE } from 'ngx-webstorage-service';
+import { SESSION_TOKEN, SessionService } from './service/session.service';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: 'activity', component: ActivityComponent },
   { path: 'detail/:id', component: DetailComponent },
   { path: '', redirectTo: '/activity', pathMatch: 'full' },
   { path: 'edit/:id', component: EditComponent },
-  { path: 'add', component: AddComponent }
+  { path: 'add', component: AddComponent },
+  { path: 'login', component: LoginComponent }
 ] 
-1
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,8 @@ const routes: Routes = [
     DetailComponent,
     NavbarComponent,
     EditComponent,
-    AddComponent
+    AddComponent,
+    LoginComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -43,6 +48,7 @@ const routes: Routes = [
       { enableTracing: true }
     ),
     BrowserModule,
+    StorageServiceModule,
     HttpClientModule,
     BrowserAnimationsModule,
     NoopAnimationsModule,
@@ -64,7 +70,9 @@ const routes: Routes = [
     ActivityService,
     UserService,
     MainForm,
-    UserForm
+    UserForm,
+    {provide: SESSION_TOKEN, useExisting: SESSION_STORAGE},
+    SessionService
   ],
   bootstrap: [AppComponent]
 })

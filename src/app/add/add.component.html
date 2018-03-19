@@ -1,13 +1,13 @@
 <header class="empty"></header>
 <div class="main">
-  <div class="container mat-elevation-z4 mat-typography">
-
+  <div class="container  mat-elevation-z4 top-20 mat-typography">
+    
     <div *ngIf="isLoading; else loadFinish" class="content">
       <mat-spinner class="center"></mat-spinner>
     </div>
 
-    <ng-template #loadFinish>
-      <div class="columns ">
+    <ng-template #loadFinish> 
+      <div class="columns">
         <!-- column 1 -->
         <div class="column">
           <div class="field">
@@ -59,7 +59,7 @@
               </li>
             </ul></div>
           </div>
-          <a class="button is-success" (click)="onSubmit()">Tambahkan</a>
+          <a class="button is-success" (click)="onSubmit()">{{button}}</a>
           <a class="button is-danger" (click)="goBack()">Batal</a><br>
         </div>
       </div>

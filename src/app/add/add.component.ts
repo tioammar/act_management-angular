@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { UserForm } from '../model/form/user-form';
 import { User } from '../model/user';
+import { SessionService } from '../service/session.service';
 
 export const FORMATS = {
   parse: {
@@ -39,7 +40,8 @@ export class AddComponent implements OnInit {
     private activityService: ActivityService,
     private location: Location,
     private snackBar: MatSnackBar,
-    private userService: UserService
+    private userService: UserService,
+    private sessionService: SessionService
   ) { }
 
   private units = [
@@ -55,13 +57,20 @@ export class AddComponent implements OnInit {
   private status: boolean;
   private users: User[];
   private userForm = new Array();
+  private isLoading = true;
+  private button: string;
 
   ngOnInit() {
+    if(!this.sessionService.checkSession()){
+      this.router.navigate(['/login']);
+    }
+    this.button = "Tambahkan";
     this.buildUserForm();
     this.form.subunit = "Business Planning & Performance";
   }
 
   onSubmit(): void {
+    this.validate();
     this.form.pic = this.selectedValue;
     this.form.deadline = this.date.format("D MMM Y");
     this.activityService.addActivity(this.form).subscribe(
@@ -84,6 +93,7 @@ export class AddComponent implements OnInit {
           uf.pic = false;
           this.userForm.push(uf);
         });
+        this.isLoading = false;
       }
     );
   }
@@ -99,6 +109,6 @@ export class AddComponent implements OnInit {
   }
   
   validate(): void {
-    
+    if(this.form.note == undefined) this.form.note = "";
   }
 }

@@ -6,6 +6,7 @@ import { MatTableDataSource, MatSnackBar } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { TableProgress } from '../model/table/table-progress';
+import { SessionService } from '../service/session.service';
 
 @Component({
   selector: 'app-detail',
@@ -19,7 +20,8 @@ export class DetailComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private sessionService: SessionService
   ) { }  
   
   private columns = ['no', 'progress', 'pic', 'pdate'];
@@ -27,10 +29,12 @@ export class DetailComponent implements OnInit {
   private dataSource = new MatTableDataSource();
   private progress: Progress[];
   private tableData = new Array();
-
   private isLoading = true;
 
   ngOnInit() {
+    if(!this.sessionService.checkSession()){
+      this.router.navigate(['/login']);
+    }
     const id = this.route.snapshot.paramMap.get('id');
     this.getDetail(id);
   }

@@ -7,6 +7,8 @@ import { HttpResponse } from '@angular/common/http';
 import { AllResponse } from '../model/response/all-response';
 import { Observable } from 'rxjs';
 import { TableActivity } from '../model/table/table-activity';
+import { SessionService } from '../service/session.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity',
@@ -15,16 +17,24 @@ import { TableActivity } from '../model/table/table-activity';
 })
 export class ActivityComponent implements OnInit {
 
-  constructor(private activityService: ActivityService) { }
+  constructor(
+    private activityService: ActivityService,
+    private sessionService: SessionService,
+    private router: Router
+  ) { }
 
   private columns = ['no', 'activity', 'subunit', 'pic', 'deadline', 'stat', 'note'];
   private dataSource = new MatTableDataSource();
   private activities: Activity[];
   private data = new Array();
 
-  private isLoading = true; // show loading spinner
+  private isLoading = true;
   
   ngOnInit() {
+    if(!this.sessionService.checkSession()){
+      this.router.navigate(['/login']);
+    }
+    console.log("main start!");
     this.getActivities();
   }
 
@@ -32,7 +42,7 @@ export class ActivityComponent implements OnInit {
     this.activityService.getActivities().subscribe(
       resp => {
         this.activities = resp.body.activities;
-        this.isLoading = false; // hide loading spinner    
+        this.isLoading = false;  
         let i = 1;
         this.activities.forEach(a => {
           let table = new TableActivity();
@@ -42,8 +52,7 @@ export class ActivityComponent implements OnInit {
           this.data.push(table);
         });
         this.dataSource.data = this.data;
-      }
-    );
+      });
   }
 
   updateData(): void {

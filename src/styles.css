@@ -3,7 +3,6 @@
 @import "bulma/css/bulma.css";
 
 app-navbar {
-  position: fixed;
   top :0;
   left: 0;
   right: 0;
@@ -19,7 +18,7 @@ app-navbar {
 }
 
 .empty {
-  height: 64px;
+  height: 0;
 }
 
 .top-20 {

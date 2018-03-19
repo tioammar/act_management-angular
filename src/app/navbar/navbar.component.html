@@ -1,8 +1,16 @@
-<div class="navbar is-link" role="navigation" aria-label="main navigation">
+<div class="mat-elevation-z4 navbar is-link" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <span class="navbar-item">
       <img src="assets/images/logo.png">
     </span>
     <a class="navbar-item" routerLink="activity">Business Planning & Performance</a>
+  </div>
+  <div *ngIf="isLoggedIn" class="navbar-end">
+    <a (click)="logOut()" class='navbar-item'>
+      <span class='icon'>
+        <i class='fas fa-sign-out-alt'></i>
+      </span>
+      <span>Keluar</span>
+    </a>
   </div>
 </div>

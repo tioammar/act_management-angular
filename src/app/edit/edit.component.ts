@@ -9,6 +9,7 @@ import { UserService } from '../service/user.service';
 import * as moment from 'moment';
 import { MAT_DATE_FORMATS, MatSnackBar } from '@angular/material';
 import { Location } from '@angular/common';
+import { SessionService } from '../service/session.service';
 
 export const FORMATS = {
   parse: {
@@ -37,7 +38,8 @@ export class EditComponent implements OnInit {
     private location: Location,
     private activityService: ActivityService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private sessionService: SessionService
   ) { }
 
   private units = [
@@ -56,8 +58,13 @@ export class EditComponent implements OnInit {
   private date: any;
   private snackBar: MatSnackBar;
   private isLoading = true;
+  private button: string;
 
   ngOnInit() {
+    if(!this.sessionService.checkSession()){
+      this.router.navigate(['/login']);
+    }
+    this.button = "Ubah";
     const id = this.route.snapshot.paramMap.get('id');
     this.getActivity(id);
   }
