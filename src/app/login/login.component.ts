@@ -25,24 +25,32 @@ export class LoginComponent implements OnInit {
 
   private wrongPass = false;
   private notRegistered = false;
+  private isLoading = false;
 
   ngOnInit() {
-    console.log("Login page rocks!");
+    if(this.sessionService.checkSession()){
+      this.router.navigate(['/activity']);
+    }
   }
 
   onSubmit(): void {
+    this.isLoading = true;
     this.userService.login(this.form).subscribe(
       resp => {
         this.response = resp.body;
         if(this.response.stat == 300){
+          this.isLoading = false;
           this.createSession();
         } else if (this.response.stat == 400){
+          this.isLoading = false;
           this.notRegistered = true;
           this.wrongPass = false;
         } else if (this.response.stat == 500){
+          this.isLoading = false;
           this.wrongPass = true;
           this.notRegistered = false;
         } else if (this.response.stat == 600){
+          this.isLoading = false;
           this.snackBar.open("Tidak Terhubung ke Jaringan Telkom", "Tutup");
         }
     });

@@ -59,7 +59,7 @@
               </li>
             </ul></div>
           </div>
-          <a class="button is-success" (click)="onSubmit()">{{button}}</a>
+          <a class="button is-success" [class.is-loading]="isSubmitting" (click)="onSubmit()">{{button}}</a>
           <a class="button is-danger" (click)="goBack()">Batal</a><br>
         </div>
       </div>

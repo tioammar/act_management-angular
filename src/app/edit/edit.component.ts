@@ -59,6 +59,7 @@ export class EditComponent implements OnInit {
   private snackBar: MatSnackBar;
   private isLoading = true;
   private button: string;
+  private isSubmitting = false;
 
   ngOnInit() {
     if(!this.sessionService.checkSession()){
@@ -96,7 +97,6 @@ export class EditComponent implements OnInit {
           uf.id = u.id;
           uf.name = u.name;
           uf.pic = this.pic.includes(u.id);
-          if(uf.pic) console.log(uf.name);
           this.userForm.push(uf);
         });
       }
@@ -110,11 +110,13 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isSubmitting = true;
     const id = this.route.snapshot.paramMap.get('id');
     this.form.pic = this.selectedValue;
     this.form.deadline = this.date.format("D MMM Y");
     this.activityService.editActivity(id, this.form).subscribe(
       resp => {
+        this.isSubmitting = false;
         const status = resp.body.stat;
         if(status){
           this.router.navigate(['/detail', id]);

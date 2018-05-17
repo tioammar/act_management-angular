@@ -9,6 +9,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { Activity } from '../model/activity';
 import { MainForm } from '../model/form/main-form';
 import { URLSearchParams } from 'url';
+import { ProgressForm } from '../model/form/progress-form';
 
 @Injectable()
 export class ActivityService {
@@ -74,7 +75,7 @@ export class ActivityService {
     );
   }
 
-  public addActivity(form: MainForm): Observable<HttpResponse<StatusResponse>>{
+  public addActivity(form: MainForm): Observable<HttpResponse<StatusResponse>> {
     return this.http.post<StatusResponse>('http://localhost/todolist/api/post.php?p=add', 
       this.buildBody(form), {observe: 'response'}).pipe(
       catchError(this.handlingError)

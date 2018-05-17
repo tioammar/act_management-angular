@@ -8,7 +8,7 @@ import { DetailComponent } from './detail/detail.component';
 import { ActivityService } from './service/activity.service';
 
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTableModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, NativeDateModule, MatFormFieldModule, MatCheckboxModule, MatSelectModule, MatProgressSpinnerModule } from '@angular/material';
+import { MatTableModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, NativeDateModule, MatFormFieldModule, MatCheckboxModule, MatSelectModule, MatProgressSpinnerModule, MatToolbarModule } from '@angular/material';
 import { RouterModule, Routes } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MatCardModule } from '@angular/material';
@@ -22,6 +22,7 @@ import { UserForm } from './model/form/user-form';
 import { StorageServiceModule, SESSION_STORAGE } from 'ngx-webstorage-service';
 import { SESSION_TOKEN, SessionService } from './service/session.service';
 import { LoginComponent } from './login/login.component';
+import { AddProgressComponent } from './add-progress/add-progress.component';
 
 const routes: Routes = [
   { path: 'activity', component: ActivityComponent },
@@ -40,7 +41,8 @@ const routes: Routes = [
     NavbarComponent,
     EditComponent,
     AddComponent,
-    LoginComponent
+    LoginComponent,
+    AddProgressComponent
   ],
   imports: [
     RouterModule.forRoot(
@@ -53,6 +55,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MatFormFieldModule,
+    MatToolbarModule,
     MatTableModule,
     MatCardModule,
     MatSnackBarModule,

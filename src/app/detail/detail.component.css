@@ -3,8 +3,8 @@
   max-width: 64px;
 }
 
-.mat-column-pdate {
-  max-width: 200px;
+.mat-column-pdate, .mat-column-act {
+  max-width: 150px;
 }
 
 .mat-column-pic {

@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit {
     private sessionService: SessionService
   ) { }  
   
-  private columns = ['no', 'progress', 'pic', 'pdate'];
+  private columns = ['no', 'progress', 'pic', 'pdate', 'act'];
   private activity: Activity;
   private dataSource = new MatTableDataSource();
   private progress: Progress[];
@@ -84,6 +84,7 @@ export class DetailComponent implements OnInit {
       resp => {
         const status = resp.body.stat;
         if(status){
+          this.tableData = [];
           this.getDetail(this.route.snapshot.paramMap.get('id'));
         } else this.snackBar.open("Gagal Mengubah Status :(", "Tutup");
       });

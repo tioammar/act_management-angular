@@ -59,6 +59,7 @@ export class AddComponent implements OnInit {
   private userForm = new Array();
   private isLoading = true;
   private button: string;
+  private isSubmitting = false;
 
   ngOnInit() {
     if(!this.sessionService.checkSession()){
@@ -70,11 +71,13 @@ export class AddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.isSubmitting = true;
     this.validate();
     this.form.pic = this.selectedValue;
     this.form.deadline = this.date.format("D MMM Y");
     this.activityService.addActivity(this.form).subscribe(
       resp => {
+        this.isSubmitting = false;
         this.status = resp.body.stat;
         if(this.status){
           this.router.navigate(['/activity']);

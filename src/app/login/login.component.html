@@ -2,23 +2,23 @@
 <div class='container'>
   <div class='columns is-centered '>
     <div class='column is-6 is-clearfix mat-elevation-z4 padding-10'>
-      <div class='field'>
-        <label class='label'>NIK</label>
-        <div class='control'>
-          <input type='text' class='input' [class.is-danger]="notRegistered" name='nik' [(ngModel)]="form.nik">
+        <div class='field'>
+          <label class='label'>NIK</label>
+          <div class='control'>
+            <input type='text' class='input' [class.is-danger]="notRegistered" name='nik' [(ngModel)]="form.nik">
+          </div>
+          <p *ngIf="notRegistered" class="help is-danger">NIK Anda tidak terdaftar pada aplikasi ini</p>
         </div>
-        <p *ngIf="notRegistered" class="help is-danger">NIK Anda tidak terdaftar pada aplikasi ini</p>
-      </div>
-      <!-- field 1.2 -->
-      <div class='field'>
-        <label class='label'>Password</label>
-        <div class='control'>
-          <input type='password' class='input' [class.is-danger]="wrongPass" name='pass' [(ngModel)]="form.password">
+        <!-- field 1.2 -->
+        <div class='field'>
+          <label class='label'>Password</label>
+          <div class='control'>
+            <input type='password' class='input' [class.is-danger]="wrongPass" name='pass' [(ngModel)]="form.password">
+          </div>
+          <p *ngIf="wrongPass" class="help is-danger">Password yang Anda masukkan salah.</p>
         </div>
-        <p *ngIf="wrongPass" class="help is-danger">Password yang Anda masukkan salah.</p>
-      </div>
       <!-- button -->
-      <a (click)="onSubmit()" class='button is-success'>Masuk</a>
+      <a (click)="onSubmit()" [class.is-loading]="isLoading" class='button is-success is-pulled-right'>Masuk</a>
     </div>
   </div>
 </div>
